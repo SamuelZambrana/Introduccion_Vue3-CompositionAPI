@@ -13,8 +13,11 @@
 </template>
 
 <script lang="ts" setup>
+import { useCounter } from '@/composables/useCounter';
 
-import { computed, ref } from 'vue';
+
+const { counter, squareCounter} = useCounter(10)
+
 
 interface Props {
   value: number
@@ -22,9 +25,10 @@ interface Props {
 
 const props = defineProps<Props>();
 
+/*
 const counter = ref(props.value)
 const squareCounter = computed(()=> counter.value *counter.value)
-
+*/
 
 </script>
 
