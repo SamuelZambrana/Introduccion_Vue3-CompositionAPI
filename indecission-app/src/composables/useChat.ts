@@ -26,6 +26,9 @@ const onMessage = ( text: string) => {
     itsMine: true,
     message: text,
   })
+
+  if ( !text.endsWith('?')) return;
+
 }
 
 return {
