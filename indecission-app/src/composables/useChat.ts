@@ -20,7 +20,23 @@ export const useChat = () => {
   ]
 )
 
-const onMessage = ( text: string) => {
+const getHerResponse = async (text: string) => {
+  const res = await fetch('https://api.example.com/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ message: text }),
+  })
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch response')
+  }
+
+  return res.json()
+}
+
+const onMessage = async ( text: string) => {
   messages.value.push({
     id: new Date().getTime(),
     itsMine: true,
@@ -28,6 +44,14 @@ const onMessage = ( text: string) => {
   })
 
   if ( !text.endsWith('?')) return;
+
+  const { message } = await getHerResponse(text)
+
+  messages.value.push({
+    id: new Date().getTime() + 1,
+    itsMine: false,
+    message,
+  })
 
 }
 
